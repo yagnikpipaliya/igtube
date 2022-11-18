@@ -1,0 +1,38 @@
+<script type="text/javascript">
+        $(document).ready(function(){
+            window.history.replaceState("","",window.location.href)
+        });
+        $("#prospects_form").submit(function(e) {
+            e.preventDefault(); // <==stop page refresh==>
+        });
+
+        var form = document.getElementById('ig');
+        var submitButton = document.getElementById('download');
+
+        form.addEventListener('submit', function() {
+
+           // Disable the submit button
+           submitButton.setAttribute('disabled', 'disabled');
+
+           // Change the "Submit" text
+           submitButton.value = 'Please wait Downloading in Progress';
+
+        }, false);
+        /*function validateMyForm()
+        {
+          if(document.getElementById("url").value=="")
+          {
+            alert("validation failed false");
+            return false;
+            returnToPreviousPage();
+
+          }
+          document.getElementById("status").value=="Downloading...";
+          alert("validations passed");
+          return true;
+        }
+        function downloadmsg(){
+            document.getElementById("status").value ="Downloading..."
+        }*/
+
+    </script>

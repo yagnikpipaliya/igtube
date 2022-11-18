@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% include "header.html" %}
+<body>
+
+
+{% include "ytnav.html" %}
+<div class="container">
+    <div class="news-container">
+
+        <!--<div>
+            &lt;!&ndash;            <div class="card">&ndash;&gt;
+            &lt;!&ndash;                <h5 class="card-header">YOUTUBE</h5>&ndash;&gt;
+            &lt;!&ndash;                <div class="card-body">&ndash;&gt;
+            &lt;!&ndash;                    <form method='post' action="{% url 'index' %}">   &lt;!&ndash;action='generate'&ndash;&gt;&ndash;&gt;
+            &lt;!&ndash;                        {% csrf_token %}&ndash;&gt;
+            &lt;!&ndash;                        <h5 class="card-title"><label for="exampleInputURL1" class="form-label">Youtube Video&ndash;&gt;
+            &lt;!&ndash;                            URL</label></h5>&ndash;&gt;
+            &lt;!&ndash;                        <p class="card-text">&ndash;&gt;
+            &lt;!&ndash;                            <input type="url" class="form-control" id="exampleInputURL1" aria-describedby="URLHelp"&ndash;&gt;
+            &lt;!&ndash;                                   placeholder="https://www.youtube.com/watch?v=OvfDLT_qA60" name="url" required>&ndash;&gt;
+            &lt;!&ndash;                        </p>&ndash;&gt;
+            &lt;!&ndash;                        <a href="#" class="btn " style="color: #A60000;  border-color: #A60000;">Download</a>&ndash;&gt;
+            &lt;!&ndash;                        &lt;!&ndash;<button type="submit">Download</button>&ndash;&gt;&ndash;&gt;
+            &lt;!&ndash;                        <input type="submit" value="Download" class="btn btn-outline-danger">&ndash;&gt;
+            &lt;!&ndash;                    </form>&ndash;&gt;
+            &lt;!&ndash;                </div>&ndash;&gt;
+            &lt;!&ndash;            </div>&ndash;&gt;
+        </div>-->
+
+        <div class="card">
+            <h5 class="card-header">YOUTUBE Video</h5>
+            <div class="card-body">
+                <!--                    <form method='post' action="{% url 'index' %}" onsubmit="return validateMyForm();" id="youtube">-->
+                <!--                        {% csrf_token %}-->
+                <h5 class="card-title"><label for="exampleInputURL1" class="form-label">Paste Your Link
+                    Here</label></h5>
+                <p class="card-text">
+                    <input type="url" class="form-control yt" id="exampleInputURL1" aria-describedby="URLHelp"
+                           placeholder="https://www.youtube.com/watch?v=OvfDLT_qA60" name="url" value="{{url}}"
+                           required>
+                </p>
+                <div><input type="submit" value="Go to Download" class="btn btn-outline-danger yt-btn"
+                            id="download">
+                </div>
+
+                <!--                    </form>-->
+            </div>
+            <!--<div class="card-footer bg-transparent" >
+                <p id="message" value=""></p>
+            </div>-->
+            {% if status %}
+            {% if status == "Video Successfully Downloaded..." %}
+            <div class="card-footer bg-transparent">
+                <div class="alert alert-success" role="alert" name="status" id="grnstatus">
+                    {{ status }}
+                </div>
+            </div>
+            {% endif%}
+            {% if status != "Video Successfully Downloaded..." %}
+            <div class="card-footer bg-transparent">
+                <div class="alert alert-danger" role="alert" name="status" id="redstatus">
+                    {{ status }}
+                </div>
+            </div>
+            {% endif%}
+            {% endif%}
+        </div>
+
+        <div class="table-responsive-md">
+            <table class="table table-borderless">
+                <thead>
+                <!--<tr>
+                    <td colspan="2"><img src="{{thumbnail}}" alt="{{title}} thumbnail"></td>
+                </tr>-->
+                </thead>
+                <tbody>
+                <tr>
+                    <td colspan="2">
+                        <img src="{{thumbnail}}" alt="{{title}} thumbnail" style="max-width: 100%; height: auto;">
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">{{title}} - TITLE</th>
+                </tr>
+                <tr>
+                    <th scope="col">Author</th>
+                    <th scope="col">{{author}}</th>
+                </tr>
+                <tr>
+                    <th scope="col">Published Date</th>
+                    <th scope="col">{{date}}</th>
+                </tr>
+                <tr>
+                    <th scope="col">Number of Views</th>
+                    <th scope="col">{{view}} - VIEWS</th>
+                </tr>
+                <tr>
+                    <th scope="col">Length of Video</th>
+                    <th scope="col">{{length}} Seconds</th>
+                </tr>
+                <!--{% if status %}
+                <tr>
+                    <th colspan="2" style="text-align: center;">
+                        {{status}}
+                    </th>
+                    <th></th>
+                </tr>
+                {% endif%}-->
+                <!--<tr>
+                    <th colspan="2" style="text-align: center;">
+                        <form method='post' action="{% url 'ytvideodownload' %}">
+                            {% csrf_token %}
+                            <input type="submit" value="Download" class="btn btn-outline-danger">
+                        </form>
+                    </th>
+                    <th></th>
+                </tr>-->
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

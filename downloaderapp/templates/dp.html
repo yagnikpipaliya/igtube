@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% include "header.html" %}
+
+<body>
+
+<div class="container-fluid " style="padding:0px">
+
+    {% include "ignav.html" %}
+
+    <div class="container">
+        <div class="news-container">
+            <div class="card">
+                <h5 class="card-header">Display Picture</h5>
+                <form method='post' action="{% url 'dp' %}" onsubmit="return validateMyForm();" id="ig">
+                    <!--action='generate'-->
+                    {% csrf_token %}
+                    {% include "iginputcardbody.html" %}
+                </form>
+                {% include "igshowerrmsg.html" %}
+
+                <!--                FOR  PRIVATE ACCOUNT-->
+                <!--{% if status1 %}
+                <div class="card-footer bg-transparent">
+                    <div class="alert alert-danger" role="alert" name="status" id="connstatus">
+                        <div class="table-responsive-md">
+                            <table class="table table-sm table-borderless" style="color: #721c24;">
+                                <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">ERROR</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>{{status1}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"></th>
+                                    <th scope="row">OTHERWISE</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>{{status2}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td colspan="2">{{status3}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endif%}-->
+
+            </div>
+
+            <!--            FOR YT VIDEO DETAILS-->
+            <!--{% if title %}
+            <div class="table-responsive-md">
+                <table class="table table-borderless">
+                    &lt;!&ndash;                    <thead>&ndash;&gt;
+                    &lt;!&ndash;                    <tr>&ndash;&gt;
+                    &lt;!&ndash;                        <th scope="col">#</th>&ndash;&gt;
+                    &lt;!&ndash;                    </tr>&ndash;&gt;
+                    &lt;!&ndash;                    </thead>&ndash;&gt;
+                    <tbody>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">{{title}}</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Author</th>
+                        <th scope="col">{{author}}</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Published Date</th>
+                        <th scope="col">{{date}}</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Number of Views</th>
+                        <th scope="col">{{view}}</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Length of Video</th>
+                        <th scope="col">{{length}} Seconds</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            {% endif%}-->
+
+        </div>
+    </div>
+
+    {% include "igdisablebtn.html" %}
+
+</div>
+
+</body>
+</html>

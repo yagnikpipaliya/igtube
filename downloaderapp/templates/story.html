@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% include "header.html" %}
+<body>
+<div class="container-fluid " style="padding:0px">
+
+    {% include "ignav.html" %}
+
+    <div class="container">
+        <div class="news-container">
+            <div class="card">
+                <h5 class="card-header">Stories</h5>
+                <form method='post' action="{% url 'story' %}" onsubmit="return validateMyForm();" id="ig">
+                    {% csrf_token %}
+                    {% include "iglogininputcardbody.html" %}
+                </form>
+                {% include "igshowerrmsg.html" %}
+            </div>
+        </div>
+    </div>
+    {% include "igdisablebtn.html" %}
+</div>
+</body>
+</html>

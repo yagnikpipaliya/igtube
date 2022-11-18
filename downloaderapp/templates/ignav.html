@@ -1,0 +1,110 @@
+
+<nav class="navbar sticky-top navbar-expand-lg navbar-light " id="instagrad">
+    <!--R#FE023A   style="background-color: Pink#FF007C;  purple-F100F7"-->
+    <a class="navbar-brand" href="{% url 'index' %}"
+       style="margin:15px 0px 10px 15px; color:  #ffffff   !important;">
+        <!--#FFBBBC  justify-content:flex-start; -->
+        <h4><b>Igtube Downloader</b></h4>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+            style="border:2px solid white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#ffffff" class="bi bi-list"
+             viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                  d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+        </svg>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent"
+         style="justify-content: flex-end;padding-right: 100px;">
+        <!--navbarSupportedContent-->
+
+        <ul class="navbar-nav "> <!-- class="m-auto" -->
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                   style="color: #ffffff !important;"> INSTAGRAM </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="{% url 'dp' %}">DP</a></li>
+                    <li><a class="dropdown-item" href="{% url 'story' %}">Stories</a></li>
+                    <li><a class="dropdown-item" href="{% url 'reels' %}">Reels</a></li>
+                    <li><a class="dropdown-item" href="{% url 'singlepost' %}">Single Post</a></li>
+                    <li><a class="dropdown-item" href="{% url 'allpost' %}">All Post</a></li>
+                    <!--<li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="">Public Profile</a>
+                        <ul class="dropdown-menu">
+                            &lt;!&ndash;<li><a class="dropdown-item" href="{% url 'dp' %}">DP</a></li>
+                            <li><a class="dropdown-item" href="{% url 'story' %}">Stories</a></li>&ndash;&gt;
+                            &lt;!&ndash;<li><a class="dropdown-item" href="{% url 'singlepost' %}">Specific Post</a></li>
+                            <li><a class="dropdown-item" href="{% url 'allpost' %}">All Post</a></li>&ndash;&gt;
+                           &lt;!&ndash;                             <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Submenu 1</a>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a class="dropdown-item" href="#">Subsubmenu1</a></li>
+                                                                <li><a class="dropdown-item" href="#">Subsubmenu1</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Submenu 2</a>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a class="dropdown-item" href="#">Subsubmenu2</a></li>
+                                                                <li><a class="dropdown-item" href="#">Subsubmenu2</a></li>
+                                                            </ul>
+                                                        </li>&ndash;&gt;
+                        </ul>
+                    </li>
+
+                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="">Private
+                        Profile</a>
+                        <ul class="dropdown-menu">
+                            &lt;!&ndash;<li><a class="dropdown-item" href="{% url 'dp' %}">DP</a></li>
+                            <li><a class="dropdown-item" href="{% url 'story' %}">Stories</a></li>&ndash;&gt;
+                            &lt;!&ndash;<li><a class="dropdown-item" href="">Specific Post</a></li>
+                            <li><a class="dropdown-item" href="{% url 'allpost' %}">All Post</a></li>&ndash;&gt;
+                        </ul>
+                    </li>-->
+                </ul>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'index' %}" style="color: #ffffff !important;">YOUTUBE<span
+                        class="sr-only">(current)</span></a>
+            </li>
+
+            <!--                <li class="nav-item dropdown active">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    INSTAGRAM
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown1"
+                                     style="background-color:#f8f9fa;border:0px;">
+
+                                    <a class="dropdown-item" href="" style="background: #e9ecef;">Public</a>
+                                    <a class="dropdown-item" href="">Private</a>
+                                    <a class="dropdown-item" href="">Automobile</a>
+
+                                     <ul class="dropdown-submenu" role="menu" aria-labelledby="dLabel">
+                                      <div class="dropdown-submenu" >
+                                        <a class="dropdown-item" tabindex="-1" href="#" class="nav-link dropdown-toggle">More options</a>
+
+                                        <ul class="dropdown-menu">
+                                            <a class="dropdown-item" href="" style="background: #e9ecef;">Public</a>
+                                        </ul>
+                                      </div>
+                                    </ul>
+                                </div>
+                            </li>
+-->
+
+        </ul>
+
+        <ul class="navbar-nav ">
+            <li class="nav-item"></li>
+            <li class="nav-item"></li>
+            <li class="nav-item "></li>
+            <li class="nav-item "></li>
+        </ul>
+
+    </div>
+
+</nav>

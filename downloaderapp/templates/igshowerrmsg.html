@@ -1,0 +1,16 @@
+{% if status %}
+    {% if status == "Downloaded..." %}
+        <div class="card-footer bg-transparent">
+            <div class="alert alert-success" role="alert" name="status" id="grnstatus">
+                {{ status }}
+            </div>
+        </div>
+    {% endif%}
+    {% if status != "Downloaded..." %}
+        <div class="card-footer bg-transparent">
+            <div class="alert alert-danger" role="alert" name="status" id="redstatus">
+                {{ status }}
+            </div>
+        </div>
+    {% endif%}
+{% endif%}

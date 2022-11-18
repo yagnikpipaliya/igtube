@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% include "header.html" %}
+<body>
+
+<div class="container-fluid " style="padding:0px">
+
+    {% include "ytnav.html" %}
+
+    <div class="container">
+        <div class="news-container">
+
+            <div class="card">
+                <h5 class="card-header">YOUTUBE Shorts</h5>
+                <div class="card-body">
+                    <form method='post' action="{% url 'shorts' %}" onsubmit="return validateMyForm();" id="youtube">
+                        <!--action='generate'-->
+                        {% csrf_token %}
+                        <h5 class="card-title"><label for="exampleInputURL1" class="form-label">Paste Your Link
+                            Here</label></h5>
+                        <p class="card-text">
+                            <input type="url" class="form-control yt" id="exampleInputURL1" aria-describedby="URLHelp"
+                                   placeholder="https://www.youtube.com/shorts/OHcqsNifRbA" name="url" value=""
+                                   required>
+                        </p>
+                        <div><input type="submit" value="Go to Download" class="btn btn-outline-danger yt-btn"
+                                    id="download">
+                        </div>
+
+                    </form>
+                </div>
+                {% if status %}
+                {% if status == "Shorts Successfully Downloaded..." %}
+                <div class="card-footer bg-transparent">
+                    <div class="alert alert-success" role="alert" name="status" id="grnstatus">
+                        {{ status }}
+                    </div>
+                </div>
+                {% endif%}
+                {% if status != "Shorts Successfully Downloaded..." %}
+                <div class="card-footer bg-transparent">
+                    <div class="alert alert-danger" role="alert" name="status" id="redstatus">
+                        {{ status }}
+                    </div>
+                </div>
+                {% endif%}
+                {% endif%}
+            </div>
+
+            {% if title %}
+            <div class="table-responsive-md">
+                <table class="table table-borderless">
+                    <!--                    <thead>-->
+                    <!--                    <tr>-->
+                    <!--                        <th scope="col">#</th>-->
+                    <!--                    </tr>-->
+                    <!--                    </thead>-->
+                    <tbody>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">{{title}}</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Author</th>
+                        <th scope="col">{{author}}</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Published Date</th>
+                        <th scope="col">{{date}}</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Number of Views</th>
+                        <th scope="col">{{view}}</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Length of Video</th>
+                        <th scope="col">{{length}} Seconds</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            {% endif%}
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            window.history.replaceState("","",window.location.href)
+        });
+        $("#prospects_form").submit(function(e) {
+            e.preventDefault(); // <==stop page refresh==>
+        });
+
+        var form = document.getElementById('youtube');
+        var submitButton = document.getElementById('download');
+
+        form.addEventListener('submit', function() {
+
+           // Disable the submit button
+           submitButton.setAttribute('disabled', 'disabled');
+
+           // Change the "Submit" text
+           submitButton.value = 'Please wait Video Downloading in Progress';
+
+        }, false);
+        /*function validateMyForm()
+        {
+          if(document.getElementById("url").value=="")
+          {
+            alert("validation failed false");
+            return false;
+            returnToPreviousPage();
+
+          }
+          document.getElementById("status").value=="Downloading...";
+          alert("validations passed");
+          return true;
+        }
+        function downloadmsg(){
+            document.getElementById("status").value ="Downloading..."
+        }*/
+
+
+    </script>
+
+</div>
+
+</body>
+</html>

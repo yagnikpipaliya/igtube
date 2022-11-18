@@ -30,41 +30,12 @@ def index(request):
     if request.method == "POST":
         validate_url = URLValidator()
         url = request.POST.get('url').strip()
-        video_resolutions = []
         try:
             yt = pytube.YouTube(url)
-            if yt.streams.filter(res="1080p") != None :
-                print(yt.streams.filter(res="1080p"))
-                video_resolutions.append('1080')
-            if yt.streams.filter(res="720p") != None :
-                print(yt.streams.filter(res="720p"))
-                video_resolutions.append('720')
-            if yt.streams.filter(res="480p") != None :
-                print(yt.streams.filter(res="480p"))
-                video_resolutions.append('480')
-            if yt.streams.filter(res="360p") != None :
-                print(yt.streams.filter(res="360p"))
-                video_resolutions.append('360')
-                print(video_resolutions)
-            if yt.streams.filter(res="240p") != None :
-                print(yt.streams.filter(res="240p"))
-                video_resolutions.append('240')
-                print(video_resolutions)
-            if yt.streams.filter(res="144p") != None :
-                print(yt.streams.filter(res="144p"))
-                video_resolutions.append('144')
-                print(video_resolutions)
-            for resolution in video_resolutions:
-                print(resolution)
-
-            # print(yt.streams.get_highest_resolution().resolution)
-            # print(yt.streams.get_lowest_resolution().resolution)
-            for stream in yt.streams.order_by('resolution'):
-                print(stream)
-                # print(video_resolutions.append(stream.resolution))
+            
             yt.streams.filter(abr="160kbps", progressive=False).first().download(filename="audio.mp3")
             audio = ffmpeg.input("audio.mp3")
-            yt.streams.filter(res="720p", progressive=False).first().download(filename="video.mp4")
+            yt.streams.filter(res="1080p", progressive=False).first().download(filename="video.mp4")
             video = ffmpeg.input("video.mp4")
 
             title = yt.title
@@ -95,7 +66,7 @@ def index(request):
             # subprocess.run('ffmpeg -i video.mp4 -i audio.mp3 -c copy -map 1:v:0? -map 0:a:0? -shortest -vcodec libx264 -vf scale=1280:720 -crf 20 -c:a aac '+ yttitle +'.mp4')
 
             ## Probably 720p, download video based on quality provide in ITAG
-            # yt.streams.get_highest_resolution().download(r'C:\Users\PREMIUM\Downloads')
+            # yt.streams.get_highest_resolution().download(r'C:\Users\ABC\Downloads')
 
             # end = time.time()
             # maptime = (end - start) / 60
@@ -127,28 +98,6 @@ def index(request):
     else:
         # yt.streams.get_highest_resolution().download()
         return render(request, 'index.html')  # ,records
-
-def ytvideodownload(request):
-    session_id = request.session.get('order_id')
-    print(request.session.get('order_id'))
-    url = request.POST.get('url').strip()
-    yt = pytube.YouTube(url)
-    char_to_replace = {'|': '',
-                       '/': '',
-                       '\\': '',
-                       '?': '',
-                       ':': '',
-                       '*': '',
-                       '>': '',
-                       '<': '',
-                       '"': '',
-                       ' ': ''}
-    yttitle = str(yt.title.translate(str.maketrans(char_to_replace)))
-    yt.streams.filter(abr="160kbps", progressive=False).first().download(filename="audio.mp3")
-    audio = ffmpeg.input("audio.mp3")
-    yt.streams.filter(res="1080p", progressive=False).first().download(filename="video.mp4")
-    video = ffmpeg.input("video.mp4")
-    ffmpeg.concat(video, audio, v=1, a=1).output(yttitle + ".mp4").run()
 
 
 def shorts(request):

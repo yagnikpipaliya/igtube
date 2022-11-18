@@ -15,18 +15,4 @@ urlpatterns = [
     path('allpost', views.allpost, name="allpost"),
     path('reels', views.reels, name="reels"),
 
-
-    # For Public Profile
-
-    # path('pubstory', views.pubstory, name="pubstory"),
-
-    # path('puballpost', views.puballpost, name="puballpost"),
-
-    # For Private Profile
-    # path('pridp', views.pridp, name="pridp"),
-    # path('pristory', views.pristory, name="pristory"),
-    # path('pripost', views.pripost, name="pripost"),
-    # path('priallpost', views.priallpost, name="priallpost"),
-    # path('ytvideodownloaded', views.ytvideodownloaded, name="ytvideodownloaded"),
-    # path('national', views.national, name="national")
 ]

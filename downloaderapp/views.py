@@ -16,18 +16,13 @@ from builtins import *
 import time
 
 # Create your views here.
-from instaloader import BadCredentialsException, InstaloaderException, ProfileNotExistsException, \
-    PrivateProfileNotFollowedException, LoginRequiredException, ConnectionException, InvalidArgumentException, \
-    TwoFactorAuthRequiredException, Profile, BadResponseException, Instaloader
-from pytube.exceptions import PytubeError, RegexMatchError
-
 
 def index(request):
     if request.method == "POST":
         validate_url = URLValidator()
         url = request.POST.get('url').strip()
         try:
-            yt = pytube.YouTube(url)
+            yt = YouTube(url)
             
             yt.streams.filter(abr="160kbps", progressive=False).first().download(filename="audio.mp3")
             audio = ffmpeg.input("audio.mp3")
@@ -66,9 +61,8 @@ def index(request):
                 'view': view,
                 'length': length,
                 'thumbnail':thumbnail,
-                # 'status': 'Video Successfully Downloaded...',
+                'status': 'Video Successfully Downloaded...',
                 'resolution':video_resolutions,
-                # 'time': maptime
             }
             print('successfully download')
             request.session['order_id'] = 'some_id_123'
@@ -77,7 +71,7 @@ def index(request):
         except ValidationError as e:
             data = {'status': e}
             return render(request, 'index.html', data)
-        except PytubeError as e:
+        except Error as e:
             data = {'status': e}
             return render(request, 'index.html', data)
         except RegexMatchError as e:
@@ -85,41 +79,6 @@ def index(request):
             return render(request, 'index.html', data)
     else:
         return render(request, 'index.html')
-
-
-def shorts(request):
-    if request.method == "POST":
-        validate_url = URLValidator()
-        url = request.POST.get('url').strip()
-        try:
-            yt = pytube.YouTube(url)
-            title = yt.title
-            author = yt.author
-            date = yt.publish_date.strftime("%d-%m-%Y")
-            view = yt.views
-            length = yt.length
-            data = {
-                'url': url,
-                'title': title,
-                'author': author,
-                'date': date,
-                'view': view,
-                'length': length,
-                'status': 'Shorts Successfully Downloaded...'
-            }
-            yt.streams.get_highest_resolution().download()
-            print('successfully download')
-            return render(request, 'shorts.html', data)
-        except ValidationError as e:
-            data = {'status': e}
-            return render(request, 'shorts.html', data)
-        except PytubeError as e:
-            data = {'status': e}
-            return render(request, 'shorts.html', data)
-        except RegexMatchError as e:
-            data = {'status': e}
-            return render(request, 'shorts.html', data)
-    return render(request, 'shorts.html')  # ,records
 
 def dp(request):
     if request.method == "POST":
@@ -158,8 +117,6 @@ def story(request):
         target = request.POST.get('privatetarget').strip()
         username = request.POST.get('privateusername').strip()
         password = request.POST.get('privatepwd').strip()
-        # p = ArgumentParser()
-        # ig = instaloader.Instaloader()
         try:
             target = target.split('@')[1].strip('@') if '@' in target else target
             username = username.split('@')[1].strip('@') if '@' in username else username
@@ -209,7 +166,7 @@ def singlepost(request):
                 try:
                             trimurl = (posturl.split('/p/')[1].strip('/ ')) #perform left slice(trim) of url
                             finalurl= trimurl.split('/?')[0].strip('/ ') #perform right slice(trim) of url
-                            post = instaloader.Post.from_shortcode(ig.context, finalurl)
+                            post = Post.from_shortcode(ig.context, finalurl)
                             ig.download_post(post,username)
                             data = {'status': 'Downloaded...'}
                             print("data : ", data)
@@ -297,7 +254,7 @@ def reels(request):
                 try:
                     trimurl = (posturl.split('/reel/')[1].strip('/ '))  # perform left slice(trim) of url
                     finalurl = trimurl.split('/?')[0].strip('/ ')  # perform right slice(trim) of url
-                    post = instaloader.Post.from_shortcode(ig.context, finalurl)
+                    post = Post.from_shortcode(ig.context, finalurl)
                     ig.download_post(post, username)
                     data = {'status': 'Downloaded...'}
                     print("data : ", data)

@@ -7,10 +7,6 @@ from sqlite3 import OperationalError, connect
 from typing import Optional
 
 from django.shortcuts import render
-import requests
-import pytube
-import instaloader
-import ffmpeg
 import subprocess
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
@@ -60,16 +56,8 @@ def index(request):
             # start = time.time()
 
             ## HD 1080p, Only Merge Video and Audio, without Compression
-            ffmpeg.concat(video, audio, v=1, a=1).output(yttitle+".mp4").run()
+            ffmpeg.concat(video, audio, v=1, a=1).output(yttitle).run()
 
-            ## 720p, MERGE with COMPRESSION
-            # subprocess.run('ffmpeg -i video.mp4 -i audio.mp3 -c copy -map 1:v:0? -map 0:a:0? -shortest -vcodec libx264 -vf scale=1280:720 -crf 20 -c:a aac '+ yttitle +'.mp4')
-
-            ## Probably 720p, download video based on quality provide in ITAG
-            # yt.streams.get_highest_resolution().download(r'C:\Users\ABC\Downloads')
-
-            # end = time.time()
-            # maptime = (end - start) / 60
             data = {
                 'url': url,
                 'title': title,
@@ -96,7 +84,7 @@ def index(request):
             data = {'status': e}
             return render(request, 'index.html', data)
     else:
-        return render(request, 'index.html')  # ,records
+        return render(request, 'index.html')
 
 
 def shorts(request):
@@ -104,7 +92,6 @@ def shorts(request):
         validate_url = URLValidator()
         url = request.POST.get('url').strip()
         try:
-            print(validate_url(url))
             yt = pytube.YouTube(url)
             title = yt.title
             author = yt.author
@@ -133,8 +120,6 @@ def shorts(request):
             data = {'status': e}
             return render(request, 'shorts.html', data)
     return render(request, 'shorts.html')  # ,records
-
-ig = instaloader.Instaloader(dirname_pattern='',compress_json=False,save_metadata=False, download_video_thumbnails=False,post_metadata_txt_pattern='')
 
 def dp(request):
     if request.method == "POST":

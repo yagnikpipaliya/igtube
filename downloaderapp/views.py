@@ -96,7 +96,6 @@ def index(request):
             data = {'status': e}
             return render(request, 'index.html', data)
     else:
-        # yt.streams.get_highest_resolution().download()
         return render(request, 'index.html')  # ,records
 
 
@@ -135,24 +134,18 @@ def shorts(request):
             return render(request, 'shorts.html', data)
     return render(request, 'shorts.html')  # ,records
 
-ig = instaloader.Instaloader(dirname_pattern='D:\Study\BE\Summer Internship 2022\Web using Django\\testinginstaloader',compress_json=False,save_metadata=False, download_video_thumbnails=False,post_metadata_txt_pattern='')
+ig = instaloader.Instaloader(dirname_pattern='',compress_json=False,save_metadata=False, download_video_thumbnails=False,post_metadata_txt_pattern='')
 
 def dp(request):
     if request.method == "POST":
         target = request.POST.get('publictarget').strip()
         try:
-            # ig.login(username, password)
             target = target.split('@')[1].strip('@') if '@' in target else target
             try:
                 ig.download_profile(target, profile_pic_only=True)
                 data = {'status': 'Downloaded...'}
                 print("data : ", data)
                 return render(request, 'dp.html', data)
-            # else:
-            #     data = {
-            #         'status': 'File already exists'
-            #     }
-            #     return render(request, 'dp.html', data)
             except ProfileNotExistsException as e:
                 data = {'status': e}
                 return render(request, 'dp.html', data)
@@ -171,9 +164,6 @@ def dp(request):
         except ConnectionException as e:
             data = {
                 'status':e,
-                # 'status1': 'Internet Connection is required!',
-                # 'status2': 'Instagram account checkpoint required!',
-                # 'status3': 'To solve it, go to settings -> manage apps and clear all data of Instagram app.'
             }
             return render(request, 'dp.html', data)
     return render(request, 'dp.html')
@@ -184,28 +174,12 @@ def story(request):
         username = request.POST.get('privateusername').strip()
         password = request.POST.get('privatepwd').strip()
         # p = ArgumentParser()
-
-
         # ig = instaloader.Instaloader()
-
         try:
-
             target = target.split('@')[1].strip('@') if '@' in target else target
             username = username.split('@')[1].strip('@') if '@' in username else username
-            # p.add_argument("-c", "--cookiefile")
-            # p.add_argument("-f", "--sessionfile")
-            print('outside try')
-            # if p.parse_args():
-            #     args = p.parse_args()
-            # else:
             ig.login(username, password)
-
-            print('inside try')
-            # import_session( get_cookiefile())
-
-            print('outside 2 try')
             try:
-                # ig.download_profile(target, download_stories_only=True)
                 profile = Profile.from_username(ig.context, target)
                 ig.download_stories(userids=[profile.userid], filename_target='{}/stories'.format(profile.username))
                 data = {'status': 'Downloaded...'}
@@ -217,8 +191,6 @@ def story(request):
             except PrivateProfileNotFollowedException as e:
                 data = {'status': e}
                 return render(request, 'story.html', data)
-        # except (ConnectionException, OperationalError) as e:
-        #     raise SystemExit("Cookie import failed: {}".format(e))
         except InvalidArgumentException as e:
             data = {'status': e}
             return render(request, 'story.html', data)
@@ -239,7 +211,6 @@ def story(request):
 def singlepost(request):
     if request.method == "POST":
         posturl = request.POST.get('igpublicpost').strip()
-        # posturl='https://www.instagram.com/p/CkN1rJRS6OQ/'
         username = request.POST.get('privateusername').strip()
         print(username)
         password = request.POST.get('privatepwd').strip()
@@ -375,131 +346,3 @@ def reels(request):
             data = {'status': e}
             return render(request, 'reels.html', data)
     return render(request, 'reels.html')
-
-# def pubstory(request):
-#     if request.method == "POST":
-#         target = request.POST.get('privatetarget')
-#         username = request.POST.get('privateusername')
-#         password = request.POST.get('privatepwd')
-#         # ig = instaloader.Instaloader()
-#         try:
-#             ig.login(username, password)
-#             try:
-#                 ig.download_profile(target, download_stories_only=True)
-#                 data = {'status': 'Downloaded...'}
-#                 print("data : ", data)
-#                 return render(request, 'story.html', data)
-#             except ProfileNotExistsException as e:
-#                 data = {'status': e}
-#                 return render(request, 'story.html', data)
-#             except PrivateProfileNotFollowedException as e:
-#                 data = {'status': e}
-#                 return render(request, 'story.html', data)
-#         except InvalidArgumentException as e:
-#             data = {'status': e}
-#             return render(request, 'story.html', data)
-#         except TwoFactorAuthRequiredException as e:
-#             data = {'status': e}
-#             return render(request, 'story.html', data)
-#         except BadCredentialsException as e:
-#             data = {'status': 'Provide Valid Username and Password'}
-#             return render(request, 'story.html', data)
-#         except LoginRequiredException as e:
-#             data = {'status': e}
-#             return render(request, 'story.html', data)
-#         except ConnectionException as e:
-#             data = {'status': e}
-#             return render(request, 'story.html', data)
-#     return render(request, 'story.html')
-
-
-'''
-# def puballpost(request):
-#     return render(request, 'puballpost.html')
-
-
-def pridp(request):
-    if request.method == "POST":
-        target = request.POST.get('pridptarget')
-        username = request.POST.get('pridpusername')
-        password = request.POST.get('pridppwd')
-        # ig = instaloader.Instaloader()
-        try:
-            ig.login(username, password)
-            try:
-                ig.download_profile(target, profile_pic_only=True)
-                data = {'status': 'Downloaded...'}
-                print("data : ", data)
-                return render(request, 'pridp.html', data)
-            # else:
-            #     data = {
-            #         'status': 'File already exists'
-            #     }
-            #     return render(request, 'pridp.html', data)
-            except ProfileNotExistsException as e:
-                data = {'status': e}
-                return render(request, 'pridp.html', data)
-            except PrivateProfileNotFollowedException as e:
-                data = {'status': e}
-                return render(request, 'pridp.html', data)
-        except InvalidArgumentException as e:
-            data = {'status': e}
-            return render(request, 'pridp.html', data)
-        except BadCredentialsException as e:
-            data = {'status': 'Provide Valid Username and Password'}
-            return render(request, 'pridp.html', data)
-        except LoginRequiredException as e:
-            data = {'status': e}
-            return render(request, 'pridp.html', data)
-        except ConnectionException as e:
-            data = {
-                'status':e,
-                # 'status1': 'Internet Connection is required!',
-                # 'status2': 'Instagram account checkpoint required!',
-                # 'status3': 'To solve it, go to settings -> manage apps and clear all data of Instagram app.'
-            }
-            return render(request, 'pridp.html', data)
-    return render(request, 'pridp.html')
- '''
-
-# def pristory(request):
-#     return render(request, 'pristory.html')
-
-
-# def pripost(request):
-#     return render(request, 'pripost.html')
-#
-#
-# def priallpost(request):
-#     return render(request, 'priallpost.html')
-
-def get_cookiefile():
-    default_cookiefile = {
-        "Windows": "~/AppData/Roaming/Mozilla/Firefox/Profiles/*/cookies.sqlite",
-        "Darwin": "~/Library/Application Support/Firefox/Profiles/*/cookies.sqlite",
-    }.get(system(), "~/.mozilla/firefox/*/cookies.sqlite")
-    cookiefiles = glob(expanduser(default_cookiefile))
-    if not cookiefiles:
-        raise SystemExit("No Firefox cookies.sqlite file found. Use -c COOKIEFILE.")
-    return cookiefiles[0]
-
-
-def import_session(cookiefile, sessionfile):
-    print("Using cookies from {}.".format(cookiefile))
-    conn = connect(f"file:{cookiefile}?immutable=1", uri=True)
-    try:
-        cookie_data = conn.execute(
-            "SELECT name, value FROM moz_cookies WHERE baseDomain='instagram.com'"
-        )
-    except OperationalError:
-        cookie_data = conn.execute(
-            "SELECT name, value FROM moz_cookies WHERE host LIKE '%instagram.com'"
-        )
-    instaloader = Instaloader(max_connection_attempts=1)
-    instaloader.context._session.cookies.update(cookie_data)
-    username = instaloader.test_login()
-    if not username:
-        raise SystemExit("Not logged in. Are you logged in successfully in Firefox?")
-    print("Imported session cookie for {}.".format(username))
-    instaloader.context.username = username
-    instaloader.save_session_to_file(sessionfile)
